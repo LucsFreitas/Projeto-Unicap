@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Energy Saving</string>
+    <string name="action_calcular">Calcular</string>
+    <string name="action_adicionar">Adicionar</string>
+    <string name="action_historico">Historico</string>
+    <string name="action_dicas">Dicas</string>
+    <string name="action_settings">Menu</string>
+    <string name="title_activity_adicionar">Adicionar</string>
+    <string name="title_activity_historico">Historico</string>
+    <string name="title_activity_calcular">Calcular</string>
+    <string name="title_activity_dicas">Dicas</string>
+    <string name="title_activity_historico_dicas">Historico de Dicas</string>
+</resources>
