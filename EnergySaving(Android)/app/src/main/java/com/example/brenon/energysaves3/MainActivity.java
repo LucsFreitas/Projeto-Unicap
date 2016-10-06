@@ -1,7 +1,12 @@
 package com.example.brenon.energysaves3;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -159,7 +164,29 @@ public class MainActivity extends AppCompatActivity {
             Dicas d = db.desbloquear();
 
             if (d != null){
+                NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(MainActivity.this)
+                                .setSmallIcon(R.drawable.ic_launcher)
+                                .setAutoCancel(true)
+                                .setContentTitle("Nova Dica Desbloqueada")
+                                .setContentText(d.getTitulo());
 
+                Intent resultIntent = new Intent(MainActivity.this, ActivityDetalheDica.class);
+                resultIntent.putExtra("DICA", d);
+
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(MainActivity.this);
+
+                stackBuilder.addParentStack(ActivityDetalheDica.class);
+
+                stackBuilder.addNextIntent(resultIntent);
+                PendingIntent resultPendingIntent =
+                        stackBuilder.getPendingIntent(
+                                0,
+                                PendingIntent.FLAG_UPDATE_CURRENT
+                        );
+                mBuilder.setContentIntent(resultPendingIntent);
+                NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                mNotificationManager.notify(0, mBuilder.build());
             }
 
         }
