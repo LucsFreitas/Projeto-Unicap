@@ -52,77 +52,80 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
                 AlertDialog.Builder dig = new AlertDialog.Builder(ActivityAdicionarConsumo.this);
                 int flag = 1;
                 String v_mes = textMes.getText().toString(); //pega os valores digitados em Data
-                int mes = Integer.valueOf(v_mes).intValue();
-
                 String v_ano = textAno.getText().toString();
-                int ano = Integer.valueOf(v_ano).intValue();
-
                 String v_custo = textCusto.getText().toString(); //pega os valores digitados em Data
-                float custo = Float.valueOf(v_custo).floatValue();
-
                 String v_cont = textContador.getText().toString(); //pega os valores digitados em Contador
-                long valorCont = Long.valueOf(v_cont).longValue();
-
                 String v_consumo = textConsumo.getText().toString();
-                int consumo = Integer.valueOf(v_consumo).intValue();
-
-                Calendar cal = Calendar.getInstance();
-
-                Date data_atual = new Date(System.currentTimeMillis());
-                Date data_informada = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
-                try{
-                    data_informada = sdf.parse(v_mes + "/" + v_ano);
-                }
-                catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                if (mes < 1 || mes > 12){
-                    dig.setMessage("Mes Invalido");
-                    dig.setNeutralButton("OK", null);
-
-                    flag = 0;
-                }
-                if (ano < 2015 || ano > cal.get(Calendar.YEAR)){
-                    dig.setMessage("Ano Invalido");
+                if(v_mes.trim().isEmpty() || v_ano.trim().isEmpty() || v_cont.trim().isEmpty() || v_consumo.trim().isEmpty() || v_custo.trim().isEmpty()){
+                    dig.setMessage("Preencha todos os campos antes de salvar");
                     dig.setNeutralButton("OK", null);
                     dig.show();
-                    flag = 0;
                 }
-                if (data_atual.compareTo(data_informada) < 0){
-                    dig.setMessage("A data deve ser anterior à atual");
-                    dig.setNeutralButton("OK", null);
-                    dig.show();
-                    flag = 0;
-                }
-                if (custo < 0){
-                    dig.setMessage("Custo invalido");
-                    dig.setNeutralButton("OK", null);
-                    dig.show();
-                    flag = 0;
-                }
-                if (consumo < 0){
-                    dig.setMessage("Consumo invalido");
-                    dig.setNeutralButton("OK", null);
-                    dig.show();
-                    flag = 0;
-                }
-                if (valorCont < 0){
-                    dig.setMessage("Valor do Contador invalido");
-                    dig.setNeutralButton("OK", null);
-                    dig.show();
-                    flag = 0;
-                }
-                if (flag == 1){
-                    DbHelperConsumo db = new DbHelperConsumo(this);
-                    Consumo c = new Consumo (mes + "/" + ano, consumo, valorCont, custo);
+                else {
 
-                    db.insertConsumo(c);
+                    int mes = Integer.valueOf(v_mes).intValue();
+                    int ano = Integer.valueOf(v_ano).intValue();
+                    float custo = Float.valueOf(v_custo).floatValue();
+                    long valorCont = Long.valueOf(v_cont).longValue();
+                    int consumo = Integer.valueOf(v_consumo).intValue();
 
-                    dig.setMessage("Consumo salvo com sucesso");
-                    dig.setNeutralButton("OK", null);
-                    dig.show();
+                    Calendar cal = Calendar.getInstance();
+
+                    Date data_atual = new Date(System.currentTimeMillis());
+                    Date data_informada = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
+                    try {
+                        data_informada = sdf.parse(v_mes + "/" + v_ano);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (mes < 1 || mes > 12) {
+                        dig.setMessage("Mes Invalido");
+                        dig.setNeutralButton("OK", null);
+
+                        flag = 0;
+                    }
+                    if (ano < 2015 || ano > cal.get(Calendar.YEAR)) {
+                        dig.setMessage("Ano Invalido");
+                        dig.setNeutralButton("OK", null);
+                        dig.show();
+                        flag = 0;
+                    }
+                    if (data_atual.compareTo(data_informada) < 0) {
+                        dig.setMessage("A data deve ser anterior à atual");
+                        dig.setNeutralButton("OK", null);
+                        dig.show();
+                        flag = 0;
+                    }
+                    if (custo < 0) {
+                        dig.setMessage("Custo invalido");
+                        dig.setNeutralButton("OK", null);
+                        dig.show();
+                        flag = 0;
+                    }
+                    if (consumo < 0) {
+                        dig.setMessage("Consumo invalido");
+                        dig.setNeutralButton("OK", null);
+                        dig.show();
+                        flag = 0;
+                    }
+                    if (valorCont < 0) {
+                        dig.setMessage("Valor do Contador invalido");
+                        dig.setNeutralButton("OK", null);
+                        dig.show();
+                        flag = 0;
+                    }
+                    if (flag == 1) {
+                        DbHelperConsumo db = new DbHelperConsumo(this);
+                        Consumo c = new Consumo(mes + "/" + ano, consumo, valorCont, custo);
+
+                        db.insertConsumo(c);
+
+                        dig.setMessage("Consumo salvo com sucesso");
+                        dig.setNeutralButton("OK", null);
+                        dig.show();
+                    }
                 }
                 break;
             case R.id.bCancelar: //Leva o usuario ao menu principal

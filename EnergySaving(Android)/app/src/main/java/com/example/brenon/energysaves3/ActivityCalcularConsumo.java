@@ -33,23 +33,22 @@ public class ActivityCalcularConsumo extends AppCompatActivity  implements View.
         DbHelperConsumo db = new DbHelperConsumo(this);
         String valor = cont_atual.getText().toString();
 
-        long valorContAtual = Long.valueOf(valor).longValue();
-        long valorContAnterior = db.retornarUltimo();
-
-        if (valorContAnterior == 0){
-            dig.setMessage("Para usar esta função, você deve inserir algum consumo antes");
+        if (valor.trim().isEmpty()){
+            dig.setMessage("Preencha o campo antes de efetuar o calculo");
             dig.setNeutralButton("Ok",null);
         }
         else {
-            if(valorContAnterior < valorContAtual){
+
+            long valorContAtual = Long.valueOf(valor).longValue();
+            long valorContAnterior = db.retornarUltimo();
+            if (valorContAnterior < valorContAtual) {
                 float result = (valorContAtual - valorContAnterior) * 0.56f;
                 DecimalFormat formatador = new DecimalFormat("0.00");
                 dig.setMessage("Resultado: R$ g" + formatador.format(result));
                 dig.setNeutralButton("Ok", null);
-            }
-            else{
+            } else {
                 dig.setMessage("O valor do contador tem que ser maior do que o anterior!");
-                dig.setNeutralButton("Ok",null);
+                dig.setNeutralButton("Ok", null);
             }
         }
         dig.show();
