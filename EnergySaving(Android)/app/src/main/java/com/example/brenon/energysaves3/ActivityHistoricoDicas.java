@@ -2,12 +2,9 @@ package com.example.brenon.energysaves3;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,9 +23,9 @@ public class ActivityHistoricoDicas extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DbHelperDicas dbDicas = new DbHelperDicas(this);
+        BancoControlerDica dbDicas = new BancoControlerDica(this);
 
-        final List<Dicas> listaDicas  = dbDicas.selectTodosAsDicas(); // listaDicas recebe o listar todos do BD
+        final List<ModelDicas> listaDicas  = dbDicas.selectTodosAsDicas(); // listaDicas recebe o listar todos do BD
 
         if(listaDicas.size() == 0){
             AlertDialog.Builder dig = new AlertDialog.Builder(ActivityHistoricoDicas.this);
@@ -40,7 +37,7 @@ public class ActivityHistoricoDicas extends AppCompatActivity {
         else {
             ArrayList<String> list = new ArrayList<>(); // Cria uma ArryaList com os titulos, para a listagem
 
-            for (Dicas aux : listaDicas) {
+            for (ModelDicas aux : listaDicas) {
                 list.add(aux.getTitulo());
             }
 
@@ -59,7 +56,7 @@ public class ActivityHistoricoDicas extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(ActivityHistoricoDicas.this, ActivityDetalheDica.class); // Intent (origem, destino);
 
-                    Dicas d = listaDicas.get(position); // Obtem a dica do array
+                    ModelDicas d = listaDicas.get(position); // Obtem a dica do array
                     intent.putExtra("DICA", d); // Insere a dica na intent para ser passado para a outra Activity
 
                     startActivity(intent); // Inicia a nova activity

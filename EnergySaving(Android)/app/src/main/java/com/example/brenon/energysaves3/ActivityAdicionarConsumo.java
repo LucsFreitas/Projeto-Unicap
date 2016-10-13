@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -32,7 +33,8 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
     private EditText textContador;
     private EditText textMes; //até aqui
 
-    @Override    protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar);
 
@@ -56,7 +58,6 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
         switch (v.getId()) { //nessa parte ele vê se o usuario apertou o botao salvar ou cancelar fazendo ações diferentes
             case R.id.bSalvar: // Mostra que foi enviado
                 AlertDialog.Builder dig = new AlertDialog.Builder(ActivityAdicionarConsumo.this);
-                int flag = 1;
                 String v_mes = textMes.getText().toString(); //pega os valores digitados em Data
                 String v_ano = textAno.getText().toString();
                 String v_custo = textCusto.getText().toString(); //pega os valores digitados em Data
@@ -68,7 +69,6 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
                     dig.show();
                 }
                 else {
-
                     int mes = Integer.valueOf(v_mes).intValue();
                     int ano = Integer.valueOf(v_ano).intValue();
                     float custo = Float.valueOf(v_custo).floatValue();
@@ -85,7 +85,7 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-
+                    int flag = 1;
                     if (mes < 1 || mes > 12) {
                         dig.setMessage("Mes Invalido");
                         dig.setNeutralButton("OK", null);
@@ -123,8 +123,8 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
                         flag = 0;
                     }
                     if (flag == 1) {
-                        DbHelperConsumo db = new DbHelperConsumo(this);
-                        Consumo c = new Consumo(mes + "/" + ano, consumo, valorCont, custo);
+                        BancoControlerConsumo db = new BancoControlerConsumo(this);
+                        ModelConsumo c = new ModelConsumo(mes + "/" + ano, consumo, valorCont, custo);
 
                         db.insertConsumo(c);
 

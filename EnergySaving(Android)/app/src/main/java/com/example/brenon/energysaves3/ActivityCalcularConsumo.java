@@ -30,7 +30,7 @@ public class ActivityCalcularConsumo extends AppCompatActivity  implements View.
     public void onClick(View v){
         AlertDialog.Builder dig = new AlertDialog.Builder(ActivityCalcularConsumo.this);
 
-        DbHelperConsumo db = new DbHelperConsumo(this);
+        BancoControlerConsumo db = new BancoControlerConsumo(this);
         String valor = cont_atual.getText().toString();
 
         if (valor.trim().isEmpty()){
@@ -44,7 +44,7 @@ public class ActivityCalcularConsumo extends AppCompatActivity  implements View.
             if (valorContAnterior < valorContAtual) {
                 float result = (valorContAtual - valorContAnterior) * 0.56f;
                 DecimalFormat formatador = new DecimalFormat("0.00");
-                dig.setMessage("Resultado: R$ g" + formatador.format(result));
+                dig.setMessage("Resultado: R$ " + formatador.format(result));
                 dig.setNeutralButton("Ok", null);
             } else {
                 dig.setMessage("O valor do contador tem que ser maior do que o anterior!");

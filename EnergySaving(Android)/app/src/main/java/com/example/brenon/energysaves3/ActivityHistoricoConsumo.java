@@ -24,11 +24,11 @@ public class ActivityHistoricoConsumo extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DbHelperConsumo dbConsumo = new DbHelperConsumo(this);
+        BancoControlerConsumo dbConsumo = new BancoControlerConsumo(this);
 
-        final List<Consumo> listaConsumos  = dbConsumo.selectTodosOsConsumos(); // listaConsumo recebe o listar todos do BD
+        final List<ModelConsumo> listaModelConsumos = dbConsumo.selectTodosOsConsumos(); // listaConsumo recebe o listar todos do BD
 
-        if(listaConsumos.size() == 0){
+        if(listaModelConsumos.size() == 0){
             AlertDialog.Builder dig = new AlertDialog.Builder(ActivityHistoricoConsumo.this);
 
             dig.setMessage("Você não tem consumo cadastrado");
@@ -38,7 +38,7 @@ public class ActivityHistoricoConsumo extends AppCompatActivity {
         else {
             ArrayList<String> list = new ArrayList<>(); // Cria uma ArryaList com as datas, para a listagem
 
-            for (Consumo aux : listaConsumos) {
+            for (ModelConsumo aux : listaModelConsumos) {
                 list.add(aux.getData());
             }
 
@@ -57,7 +57,7 @@ public class ActivityHistoricoConsumo extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(ActivityHistoricoConsumo.this, ActivityDetalheConsumo.class); // Intent (origem, destino);
 
-                    Consumo c = listaConsumos.get(position); // Obtem o consumo do array
+                    ModelConsumo c = listaModelConsumos.get(position); // Obtem o consumo do array
                     intent.putExtra("CONSUMO", c); // Insere o consumo na intent para ser passado para a outra Activity
 
                     startActivity(intent); // Inicia a nova activity

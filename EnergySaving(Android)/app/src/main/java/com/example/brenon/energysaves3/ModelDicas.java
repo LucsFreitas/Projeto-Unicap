@@ -2,12 +2,12 @@ package com.example.brenon.energysaves3;
 
 import java.io.Serializable;
 
-public class Dicas implements Serializable{
+public class ModelDicas implements Serializable{
     private String titulo;
     private String descricao;
     private int id;
 
-    public Dicas (int pid, String pTitulo, String pDesc){
+    public ModelDicas(int pid, String pTitulo, String pDesc){
         id = pid;
         titulo = pTitulo;
         descricao = pDesc;

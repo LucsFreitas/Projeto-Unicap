@@ -25,13 +25,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*criar_dicas();
-
-
-
-        DbHelperDicas db = new DbHelperDicas(this);
-
-        db.desbloquear();*/
+        criar_dicas();
+        gerar_dica();
     }
     //Menu
     @Override
@@ -72,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void criar_dicas (){
-        DbHelperDicas dbDicas = new DbHelperDicas(this);
+        BancoControlerDica dbDicas = new BancoControlerDica(this);
         boolean resp = dbDicas.isEmpty();
 
         if (resp){
@@ -85,13 +80,13 @@ public class MainActivity extends AppCompatActivity {
             desc = "Aproveite ao máximo a luz do dia deixando cortinas e portas abertas. " +
                     "Em caso de mesas de trabalho e de leitura, coloque-as próximas às janelas. " +
                     "Essa simples mudança nos cômodos pode gerar muita economia de energia no fim do mês";
-            Dicas d = new Dicas(0, titulo, desc);
+            ModelDicas d = new ModelDicas(0, titulo, desc);
             dbDicas.insertDicas(d);
 
             // Dica 2
             titulo = "Vai comprar um ventilador?";
             desc = "Lembre-se que quanto maior o diâmetro das hélices, maior o consumo. ";
-            d = new Dicas(0, titulo, desc);
+            d = new ModelDicas(0, titulo, desc);
             dbDicas.insertDicas(d);
 
             // Dica 3
@@ -99,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             desc = "A energia fica mais cara da 18h às 21h. Por isso, se possível, evite usar " +
                     "aparelhos elétricos de alto consumo de energia (como ferros de passar roupa e " +
                     "chuveiros elétricos) durante este horário.";
-            d = new Dicas(0, titulo, desc);
+            d = new ModelDicas(0, titulo, desc);
             dbDicas.insertDicas(d);
 
             // Dica 4
@@ -107,14 +102,14 @@ public class MainActivity extends AppCompatActivity {
             desc = "Ambientes pintados com cores claras, especialmente os tetos, conseguem " +
                     "refletir e espalhar a luz para todo o ambiente, possibilitando utilizar " +
                     "lâmpadas de menor potência.";
-            d = new Dicas(0, titulo, desc);
+            d = new ModelDicas(0, titulo, desc);
             dbDicas.insertDicas(d);
 
             // Dica 5
             titulo = "Vai comprar algum equipamento elétrico?";
             desc = "Compre equipamentos com o selo Procel de Economia de Energia, \n" +
                     "de preferência da Categoria A, pois tais equipamentos consumem menos energia.";
-            d = new Dicas(0, titulo, desc);
+            d = new ModelDicas(0, titulo, desc);
             dbDicas.insertDicas(d);
 
             // Dica 6
@@ -128,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                     "perdas. Isso as torna mais eficientes, além de durarem cerca de 8 mil horas, " +
                     "contra 1 mil das incandescentes. Por isso, se ainda houver alguma lâmpada " +
                     "incandescente na sua residência, sugerimos substitui-la por uma fluorescente.";
-            d = new Dicas(0, titulo, desc);
+            d = new ModelDicas(0, titulo, desc);
             dbDicas.insertDicas(d);
 
             // Dica 7
@@ -141,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     "para entrar em modo de espera ou desligamento automático após uma hora sem uso, " +
                     "para o caso de o usuário esquecê-lo ligado. Se puder optar entre um computador " +
                     "e um laptop ou notebook prefira esses últimos, que são muito mais econômicos.";
-            d = new Dicas(0, titulo, desc);
+            d = new ModelDicas(0, titulo, desc);
             dbDicas.insertDicas(d);
         }
     }
@@ -149,9 +144,9 @@ public class MainActivity extends AppCompatActivity {
     public void gerar_dica(){
         Timer timer = new Timer();
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 10);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE, 02);
+        calendar.set(Calendar.SECOND, 02);
         Date time = calendar.getTime();
         timer.schedule(new dicasDiarias(), time);
     }
@@ -159,9 +154,9 @@ public class MainActivity extends AppCompatActivity {
     class dicasDiarias extends TimerTask {
         @Override
         public void run(){
-            DbHelperDicas db = new DbHelperDicas(MainActivity.this);
+            BancoControlerDica db = new BancoControlerDica(MainActivity.this);
 
-            Dicas d = db.desbloquear();
+            ModelDicas d = db.desbloquear();
 
             if (d != null){
                 NotificationCompat.Builder mBuilder =

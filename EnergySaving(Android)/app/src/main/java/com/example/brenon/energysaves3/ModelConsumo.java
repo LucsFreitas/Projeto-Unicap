@@ -3,13 +3,13 @@ package com.example.brenon.energysaves3;
 import java.io.Serializable;
 
 
-public class Consumo implements Serializable{ // Implementa Serializable para poder passar o objeto através de uma intent
+public class ModelConsumo implements Serializable{ // Implementa Serializable para poder passar o objeto através de uma intent
     private String data;
     private int consumo;
     private float custo;
     private long valorContador;
 
-    public Consumo (String pdata, int pconsumo,  long pValorContador, float pcusto){
+    public ModelConsumo(String pdata, int pconsumo, long pValorContador, float pcusto){
         data = pdata;
         consumo = pconsumo;
         custo = pcusto;
