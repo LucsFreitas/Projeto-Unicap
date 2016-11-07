@@ -8,13 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import java.text.DecimalFormat;
 
 public class ActivityCalcularConsumo extends AppCompatActivity  implements View.OnClickListener{
     //menu
-    private ImageButton ib_Calcular;
+    private Button ib_Calcular;
     private EditText cont_atual;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class ActivityCalcularConsumo extends AppCompatActivity  implements View.
         setContentView(R.layout.activity_calcular);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ib_Calcular = (ImageButton)findViewById(R.id.ib_Calcular);
+        ib_Calcular = (Button)findViewById(R.id.ib_Calcul);
         ib_Calcular.setOnClickListener(this);
 
         cont_atual = (EditText) findViewById(R.id.cont_atual);

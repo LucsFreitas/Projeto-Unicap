@@ -12,27 +12,25 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.brenon.energysaves3.ActivityCalcularConsumo"
     tools:showIn="@layout/activity_calcular">
-    <ImageButton
+
+
+    <Button
+        android:text="OK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/checkbox_on_background"
-        android:id="@+id/ib_Calcular"
-        style="@android:style/Widget.ImageButton"
-        android:layout_marginRight="37dp"
-        android:layout_marginEnd="37dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/ib_Calcul"
+        android:layout_alignBottom="@+id/cont_atual"
+        android:layout_toEndOf="@+id/cont_atual" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:layout_alignBottom="@+id/ib_Calcular"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="19dp"
         android:id="@+id/cont_atual"
-        android:hint="Valor do Contador" />
+        android:hint="Valor do Contador"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

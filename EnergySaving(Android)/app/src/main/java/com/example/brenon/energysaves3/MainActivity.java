@@ -145,8 +145,8 @@ public class MainActivity extends AppCompatActivity {
         Timer timer = new Timer();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.MINUTE, 02);
-        calendar.set(Calendar.SECOND, 02);
+        calendar.set(Calendar.MINUTE, 30);
+        calendar.set(Calendar.SECOND, 00);
         Date time = calendar.getTime();
         timer.schedule(new dicasDiarias(), time);
     }
@@ -155,35 +155,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run(){
             BancoControlerDica db = new BancoControlerDica(MainActivity.this);
-
             ModelDicas d = db.desbloquear();
 
             if (d != null){
-                NotificationCompat.Builder mBuilder =
-                        new NotificationCompat.Builder(MainActivity.this)
-                                .setSmallIcon(R.drawable.ic_launcher)
-                                .setAutoCancel(true)
-                                .setContentTitle("Nova Dica Desbloqueada")
-                                .setContentText(d.getTitulo());
+                Intent intent = new Intent(MainActivity.this, ActivityDetalheDica.class);
+                intent.putExtra("DICA", d);
 
-                Intent resultIntent = new Intent(MainActivity.this, ActivityDetalheDica.class);
-                resultIntent.putExtra("DICA", d);
-
-                TaskStackBuilder stackBuilder = TaskStackBuilder.create(MainActivity.this);
-
-                stackBuilder.addParentStack(ActivityDetalheDica.class);
-
-                stackBuilder.addNextIntent(resultIntent);
-                PendingIntent resultPendingIntent =
-                        stackBuilder.getPendingIntent(
-                                0,
-                                PendingIntent.FLAG_UPDATE_CURRENT
-                        );
-                mBuilder.setContentIntent(resultPendingIntent);
-                NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                mNotificationManager.notify(0, mBuilder.build());
+                String titulo = "Nova Dica Desbloqueada!!!";
+                int id = 1;
+                NotificationUtil.createHeadsUp(MainActivity.this, intent, titulo, d.getTitulo(), id);
             }
-
         }
     }
 }
