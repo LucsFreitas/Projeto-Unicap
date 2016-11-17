@@ -40,11 +40,8 @@ public class BancoControlerConsumo {
 
     public List<ModelConsumo> selectTodosOsConsumos() {
         List<ModelConsumo> listModelConsumos = new ArrayList<ModelConsumo>();
-
         db = banco.getReadableDatabase();
-
         String sqlSelectTodosConsumos = "SELECT * FROM TabelaConsumo";
-
         Cursor c = db.rawQuery(sqlSelectTodosConsumos, null);
         //esse if seria pq tipo caso ele estiver vazio ele vai armazenando
         // todos os objetos na array pra depois retornar a lista com todos

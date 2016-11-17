@@ -1,5 +1,6 @@
 package com.example.brenon.energysaves3;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         criar_dicas();
+        agendarNotificacao();
         gerar_dica();
     }
     //Menu
@@ -139,6 +142,22 @@ public class MainActivity extends AppCompatActivity {
             d = new ModelDicas(0, titulo, desc);
             dbDicas.insertDicas(d);
         }
+    }
+
+    public long getTime(){
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(System.currentTimeMillis());
+        c.set(Calendar.HOUR_OF_DAY, 15);
+        c.set(Calendar.MINUTE, 00);
+        c.add(Calendar.DAY_OF_MONTH, 1);
+
+        long time = c.getTimeInMillis();
+        return time;
+    }
+
+    public void agendarNotificacao (){
+        //Intent intent = new Intent(EmitirDicaReceiver.ACTION);
+       // AlarmUtil.scheduleRepeat(this, intent, getTime(), AlarmManager.INTERVAL_DAY);
     }
 
     public void gerar_dica(){
