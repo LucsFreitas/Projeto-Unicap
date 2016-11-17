@@ -95,7 +95,8 @@ public class BancoControlerDica {
         db = banconovo.getReadableDatabase();
         String sqldesbloquear = "SELECT * FROM TabelaDica";
         Cursor c = db.rawQuery(sqldesbloquear, null);
-        ContentValues cv = new ContentValues();
+        ContentValues valores = new ContentValues();
+        valores.put("status", 1);
         if(c.moveToFirst())
             do {
                 if (c.getInt(1) == 0) {
@@ -103,7 +104,7 @@ public class BancoControlerDica {
                     String titulo = c.getString(2);
                     String descricao = c.getString(3);
                     ModelDicas dica = new ModelDicas(id, titulo, descricao);
-                    //cv.put("status", 1);
+                    db.update("TabelaDica", valores, "_id = ? ", new String[]{" "+dica.getId()});
                     return dica;
                 }
 
