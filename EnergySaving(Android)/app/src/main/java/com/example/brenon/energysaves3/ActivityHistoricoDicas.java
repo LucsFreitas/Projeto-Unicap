@@ -26,7 +26,6 @@ public class ActivityHistoricoDicas extends AppCompatActivity {
         BancoControlerDica dbDicas = new BancoControlerDica(this);
 
         final List<ModelDicas> listaDicas  = dbDicas.selectTodosAsDicas(); // listaDicas recebe o listar todos do BD
-        AlertDialog.Builder dig1 = new AlertDialog.Builder(ActivityHistoricoDicas.this);
 
         if(listaDicas.size() == 0){
             AlertDialog.Builder dig = new AlertDialog.Builder(ActivityHistoricoDicas.this);
@@ -41,7 +40,7 @@ public class ActivityHistoricoDicas extends AppCompatActivity {
             for (ModelDicas aux : listaDicas) {
                 list.add(aux.getTitulo());
             }
-/*
+
             String[] dicas = list.toArray(new String[list.size()]);
 
             ListView listView = (ListView) findViewById(R.id.listaD); // Procura a ListView onde vai ser feito a listagem
@@ -62,7 +61,7 @@ public class ActivityHistoricoDicas extends AppCompatActivity {
 
                     startActivity(intent); // Inicia a nova activity
                 }
-            });*/
+            });
         }
     }
     //Menu

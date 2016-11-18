@@ -57,11 +57,12 @@ public class BancoControlerDica {
 
         if(c.moveToFirst()){
             do {
-                if(c.getInt(0) == 1) {
+                if(c.getInt(1) == 1) {
                     int id = c.getInt(0);
-                    String titulo = c.getString(1);
-                    String descricao = c.getString(2);
-                    ModelDicas dica = new ModelDicas(id, titulo, descricao);
+                    String titulo = c.getString(2);
+                    String descricao = c.getString(3);
+                    int status = c.getInt(1);
+                    ModelDicas dica = new ModelDicas(id, titulo, descricao,status);
                     listDicas.add(dica);
                 }
             } while (c.moveToNext());//enquanto tiver algo no BD
@@ -80,9 +81,10 @@ public class BancoControlerDica {
         if(c.moveToFirst()){
             do {
                 int id = c.getInt(0);
-                String titulo = c.getString(1);
-                String descricao = c.getString(2);
-                ModelDicas dica = new ModelDicas(id, titulo, descricao);
+                String titulo = c.getString(2);
+                String descricao = c.getString(3);
+                int status = c.getInt(1);
+                ModelDicas dica = new ModelDicas(id, titulo, descricao,status);
                 listDicastodas.add(dica);
             } while (c.moveToNext());
         }
@@ -94,19 +96,19 @@ public class BancoControlerDica {
     public ModelDicas desbloquear(){
         db = banconovo.getReadableDatabase();
         String sqldesbloquear = "SELECT * FROM TabelaDica";
-        int status = 0;
-        String _status = String.valueOf(status);
         Cursor c = db.rawQuery(sqldesbloquear, null);
         ContentValues valores = new ContentValues();
-        valores.put("status", 1);
         if(c.moveToFirst())
             do {
                 if (c.getInt(1) == 0) {
-                    int id = c.getInt(1);
+                    int id = c.getInt(0);
                     String titulo = c.getString(2);
                     String descricao = c.getString(3);
-                    ModelDicas dica = new ModelDicas(id, titulo, descricao);
-                    db.update("TabelaDica", valores, "status= ?", new String[]{_status});
+                    int status = c.getInt(1);
+                    ModelDicas dica = new ModelDicas(id, titulo, descricao,status);
+                    String _id = String.valueOf(c.getInt(1));
+                    valores.put("status", 1);
+                    db.update("TabelaDica", valores, "_id =" + id, null);
                     return dica;
                 }
 
