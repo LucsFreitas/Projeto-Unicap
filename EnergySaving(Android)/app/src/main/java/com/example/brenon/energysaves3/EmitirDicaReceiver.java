@@ -19,8 +19,4 @@ public class EmitirDicaReceiver extends BroadcastReceiver{
             NotificationUtil.createHeadsUp(context, intent2, titulo, d.getTitulo(), id);
         }
     }
-
-    public void teste(){
-
-    }
 }

@@ -1,20 +1,13 @@
 package com.example.brenon.energysaves3;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
+import android.app.AlarmManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     //Menu
@@ -25,7 +18,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         criar_dicas();
-        gerar_dica();
+        //gerar_dica();
+        agendarNotificacao();
     }
     //Menu
     @Override
@@ -148,30 +142,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void gerar_dica(){
-        Timer timer = new Timer();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.MINUTE, 30);
-        calendar.set(Calendar.SECOND, 00);
-        Date time = calendar.getTime();
-        timer.schedule(new dicasDiarias(), time);
+    public long getTime(){
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(System.currentTimeMillis());
+        c.set(Calendar.HOUR_OF_DAY, 15);
+        c.set(Calendar.MINUTE, 00);
+        c.add(Calendar.DAY_OF_MONTH, 1);
+
+        long time = c.getTimeInMillis();
+
+        return time;
     }
 
-    class dicasDiarias extends TimerTask {
-        @Override
-        public void run(){
-            BancoControlerDica db = new BancoControlerDica(MainActivity.this);
-            ModelDicas d = db.desbloquear();
-
-            if (d != null){
-                Intent intent = new Intent(MainActivity.this, ActivityDetalheDica.class);
-                intent.putExtra("DICA", d);
-
-                String titulo = "Nova Dica Desbloqueada!!!";
-                int id = 1;
-                NotificationUtil.createHeadsUp(MainActivity.this, intent, titulo, d.getTitulo(), id);
-            }
-        }
+    public void agendarNotificacao (){
+        Intent intent = new Intent(this, EmitirDicaReceiver.class);
+        AlarmUtil.scheduleRepeat(this, intent, getTime(), AlarmManager.INTERVAL_DAY);
     }
 }
