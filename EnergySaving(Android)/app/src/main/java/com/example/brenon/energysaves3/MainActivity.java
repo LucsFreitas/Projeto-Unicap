@@ -33,10 +33,6 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         //Coloca todas as Activitys para o usuario escolher uma, tambem faz parte do menu
         switch (id){
-            case R.id.action_settings:
-                Intent it = new Intent(this, MainActivity.class);
-                startActivity(it);
-                break;
             case R.id.action_adicionar:
                 Intent it2 = new Intent(this, ActivityAdicionarConsumo.class);
                 startActivity(it2);

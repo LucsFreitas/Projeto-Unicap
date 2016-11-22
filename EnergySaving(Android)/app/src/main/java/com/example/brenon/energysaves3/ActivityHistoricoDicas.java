@@ -70,10 +70,6 @@ public class ActivityHistoricoDicas extends AppCompatActivity {
         int id = item.getItemId();
         //Coloca todas as Activitys para o usuario escolher uma, tambem faz parte do menu
         switch (id){
-            case R.id.action_settings:
-                Intent it = new Intent(this, MainActivity.class);
-                startActivity(it);
-                break;
             case R.id.action_adicionar:
                 Intent it2 = new Intent(this, ActivityAdicionarConsumo.class);
                 startActivity(it2);
@@ -89,7 +85,9 @@ public class ActivityHistoricoDicas extends AppCompatActivity {
             case R.id.action_dicas:
                 Intent it5 = new Intent(this, ActivityHistoricoDicas.class);
                 startActivity(it5);
+                finish();
                 break;
+
         }
 
 

@@ -77,10 +77,6 @@ public class ActivityHistoricoConsumo extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id){
-            case R.id.action_settings:
-                Intent it = new Intent(this, MainActivity.class);
-                startActivity(it);
-                break;
             case R.id.action_adicionar:
                 Intent it2 = new Intent(this, ActivityAdicionarConsumo.class);
                 startActivity(it2);
@@ -92,6 +88,7 @@ public class ActivityHistoricoConsumo extends AppCompatActivity {
             case R.id.action_historico:
                 Intent it4 = new Intent(this, ActivityHistoricoConsumo.class);
                 startActivity(it4);
+                finish();
                 break;
             case R.id.action_dicas:
                 Intent it5 = new Intent(this, ActivityHistoricoDicas.class);

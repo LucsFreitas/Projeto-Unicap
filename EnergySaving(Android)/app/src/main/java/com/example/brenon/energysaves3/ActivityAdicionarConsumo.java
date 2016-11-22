@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TableLayout;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,7 +33,7 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
     private EditText textAno;
     private EditText textCusto;
     private EditText textContador;
-    private EditText textMes; //até aqui
+    private EditText textMes;//até aqui
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
 
         bCancelar = (Button) findViewById(R.id.bCancelar); // aqui o tipo da ação é um botão
         bCancelar.setOnClickListener(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); //aqui esta se referindo ao menu
         setSupportActionBar(toolbar);
     }
@@ -150,13 +153,10 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
         int id = item.getItemId();
 
         switch (id){
-            case R.id.action_settings:
-                Intent it = new Intent(this, MainActivity.class);
-                startActivity(it);
-                break;
             case R.id.action_adicionar:
                 Intent it2 = new Intent(this, ActivityAdicionarConsumo.class);
                 startActivity(it2);
+                finish();
                 break;
             case R.id.action_calcular:
                 Intent it3 = new Intent(this, ActivityCalcularConsumo.class);

@@ -1,42 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="com.example.brenon.energysaves3">
+    package="com.example.brenon.energysaves3">
 
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
-<application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name"
-    android:supportsRtl="true" android:theme="@style/AppTheme" >
-
-    <activity android:name=".MainActivity" android:launchMode="singleTop" android:label="@string/app_name"
-        android:theme="@style/AppTheme.NoActionBar">
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-    </activity>
 
-    <receiver android:name=".EmitirDicaReceiver">
-        <intent-filter>
-            <action android:name="com.example.brenon.Emitir_Dica" />
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
-    </receiver>
+        <activity
+            android:name=".SplashActivity"
+            android:label="@string/title_activity_splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-    <activity android:name=".ActivityAdicionarConsumo" android:label="@string/title_activity_adicionar"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity android:name=".ActivityHistoricoConsumo" android:label="@string/title_activity_historico"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity android:name=".ActivityCalcularConsumo" android:label="@string/title_activity_calcular"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity android:name=".ActivityHistoricoDicas" android:label="@string/title_activity_dicas"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity android:name=".ActivityDetalheConsumo" />
-    <activity android:name=".ActivityDetalheDica"
-        android:parentActivityName=".MainActivity">
-        <meta-data android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity" />
-    </activity>
-</application>
+        <receiver android:name=".EmitirDicaReceiver">
+            <intent-filter>
+                <action android:name="com.example.brenon.Emitir_Dica" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".ActivityAdicionarConsumo"
+            android:label="@string/title_activity_adicionar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActivityHistoricoConsumo"
+            android:label="@string/title_activity_historico"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActivityCalcularConsumo"
+            android:label="@string/title_activity_calcular"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActivityHistoricoDicas"
+            android:label="@string/title_activity_dicas"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ActivityDetalheConsumo" />
+        <activity
+            android:name=".ActivityDetalheDica"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+    </application>
 
 </manifest>

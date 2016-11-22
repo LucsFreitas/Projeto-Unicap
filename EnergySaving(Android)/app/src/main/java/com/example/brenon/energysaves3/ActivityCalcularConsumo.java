@@ -65,10 +65,6 @@ public class ActivityCalcularConsumo extends AppCompatActivity  implements View.
         int id = item.getItemId();
         //menu
         switch (id){
-            case R.id.action_settings:
-                Intent it = new Intent(this, MainActivity.class);
-                startActivity(it);
-                break;
             case R.id.action_adicionar:
                 Intent it2 = new Intent(this, ActivityAdicionarConsumo.class);
                 startActivity(it2);
@@ -76,6 +72,7 @@ public class ActivityCalcularConsumo extends AppCompatActivity  implements View.
             case R.id.action_calcular:
                 Intent it3 = new Intent(this, ActivityCalcularConsumo.class);
                 startActivity(it3);
+                finish();
                 break;
             case R.id.action_historico:
                 Intent it4 = new Intent(this, ActivityHistoricoConsumo.class);
