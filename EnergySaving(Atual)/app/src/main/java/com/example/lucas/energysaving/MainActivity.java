@@ -14,11 +14,13 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button bAdicionar;
     private Button bCalcular;
+    private Button btempDica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bAdicionar = (Button)findViewById(R.id.ib_ActAdicionar);
         bCalcular.setOnClickListener(this);
         bAdicionar.setOnClickListener(this);
+
+        btempDica = (Button) findViewById(R.id.tempDica);
+        btempDica.setOnClickListener(this);
 
         criar_dicas();
         agendarNotificacao();
@@ -52,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ib_ActCalcular: // Inicia a Activity Calcular
                 Intent intent2 = new Intent (this, ActivityCalcularConsumo.class);
                 startActivity(intent2);
+                break;
+            case R.id.tempDica:
+                Intent intent3 = new Intent (this, ActivityHistoricoDicas.class);
+                startActivity(intent3);
                 break;
         }
     }
@@ -139,21 +148,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void preencherListView (){
+    private List<ContractConsumo> obterConsumos (){
         DAOconsumo dbConsumo = new DAOconsumo(this);
 
         // listaConsumo recebe o listar todos do BD
-        final List<ContractConsumo> listaModelConsumos = dbConsumo.selectTodosOsConsumos();
+        List<ContractConsumo> temp = dbConsumo.selectTodosOsConsumos();
 
-        if(listaModelConsumos.size() == 0){
-            AlertDialog.Builder dig = new AlertDialog.Builder(MainActivity.this);
+        Collections.sort(temp);
+        return temp;
+    }
 
-            dig.setMessage("Você ainda não cadastrou nenhum consumo. Quando cadastrar, será aqui " +
-                    "que eles irão ser mostrados.");
-            dig.setNeutralButton("OK", null);
-            dig.show();
-        }
-        else {
+    private void preencherListView (){
+        final List<ContractConsumo> listaModelConsumos = obterConsumos();
+
+        if(listaModelConsumos.size() != 0) {
             ArrayList<String> list = new ArrayList<>(); // Cria uma ArryaList com as datas, para a listagem
 
             for (ContractConsumo aux : listaModelConsumos) {
@@ -190,10 +198,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private long getTime(){
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(System.currentTimeMillis());
-        c.set(Calendar.HOUR_OF_DAY, 20);
-        c.set(Calendar.MINUTE, 18);
+        c.set(Calendar.HOUR_OF_DAY, 15);
+        c.set(Calendar.MINUTE, 00);
         c.set(Calendar.SECOND, 00);
-        //c.add(Calendar.DAY_OF_MONTH, 1);
+        c.add(Calendar.DAY_OF_MONTH, 1);
 
         long time = c.getTimeInMillis();
 

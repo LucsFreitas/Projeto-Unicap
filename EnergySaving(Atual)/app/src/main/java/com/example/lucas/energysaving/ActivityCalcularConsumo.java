@@ -1,5 +1,6 @@
 package com.example.lucas.energysaving;
 
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,7 +44,12 @@ public class ActivityCalcularConsumo extends AppCompatActivity implements View.O
                 float result = (valorContAtual - valorContAnterior) * 0.56f;
                 DecimalFormat formatador = new DecimalFormat("0.00");
                 dig.setMessage("Resultado: R$ " + formatador.format(result));
-                dig.setNeutralButton("Ok", null);
+                dig.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
             } else {
                 dig.setMessage("O valor do contador tem que ser maior do que o informado " +
                         "no cadastro do consumo anterior!");

@@ -63,8 +63,6 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
                     long valorCont = Long.valueOf(v_cont).longValue();
                     int consumo = Integer.valueOf(v_consumo).intValue();
 
-                    Calendar cal = Calendar.getInstance();
-
                     Date data_atual = new Date(System.currentTimeMillis());
                     Date data_informada = new Date();
                     SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
@@ -86,12 +84,7 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
                         dig.show();
                         flag = 0;
                     }
-                    if (ano > cal.get(Calendar.YEAR)) {
-                        dig.setMessage("Ano Invalido. O ano informado é superior ao atual.");
-                        dig.setNeutralButton("OK", null);
-                        dig.show();
-                        flag = 0;
-                    }
+
                     if (data_atual.compareTo(data_informada) < 0) {
                         dig.setMessage("A data deve ser anterior à atual");
                         dig.setNeutralButton("OK", null);
@@ -116,9 +109,16 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
                         dig.show();
                         flag = 0;
                     }
+
                     if (flag == 1) {
                         DAOconsumo db = new DAOconsumo(this);
-                        ContractConsumo c = new ContractConsumo(mes + "/" + ano, consumo, custo,valorCont);
+                        String data;
+                        if (mes < 10)
+                            data = "0" + mes + '/' + ano;
+                        else
+                            data = "" + mes + '/' + ano;
+
+                        ContractConsumo c = new ContractConsumo(data, consumo, custo,valorCont);
 
                         db.insertConsumo(c);
 
