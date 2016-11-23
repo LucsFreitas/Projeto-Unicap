@@ -117,8 +117,8 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
                         flag = 0;
                     }
                     if (flag == 1) {
-                        BancoControllerConsumo db = new BancoControllerConsumo(this);
-                        ModelConsumo c = new ModelConsumo(mes + "/" + ano, consumo, valorCont, custo);
+                        DAOconsumo db = new DAOconsumo(this);
+                        ContractConsumo c = new ContractConsumo(mes + "/" + ano, consumo, custo,valorCont);
 
                         db.insertConsumo(c);
 

@@ -2,17 +2,26 @@ package com.example.lucas.energysaving;
 
 import java.io.Serializable;
 
-public class ModelConsumo implements Serializable {
+/**
+ * Created by Flavianne on 23/11/2016.
+ */
+
+
+public class ContractConsumo implements Serializable{
+
+
     private String data;
     private int consumo;
     private float custo;
     private long valorContador;
 
-    public ModelConsumo(String pdata, int pconsumo, long pValorContador, float pcusto){
-        data = pdata;
-        consumo = pconsumo;
-        custo = pcusto;
-        valorContador = pValorContador;
+    private ContractConsumo(){}
+
+    public ContractConsumo(String pdata, int pconsumo, float pcusto, long pcontador){
+        this.data = pdata;
+        this.consumo = pconsumo;
+        this.custo = pcusto;
+        this.valorContador = pcontador;
     }
 
     public String getData() {
@@ -46,4 +55,7 @@ public class ModelConsumo implements Serializable {
     public void setValorContador(long valorContador) {
         this.valorContador = valorContador;
     }
+
+
+
 }

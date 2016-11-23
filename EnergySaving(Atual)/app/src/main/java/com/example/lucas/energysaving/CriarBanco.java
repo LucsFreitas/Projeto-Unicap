@@ -5,22 +5,22 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class CriarBanco extends SQLiteOpenHelper {
+    private  static int VERSAO= 1;
     private static final String NOME_BANCO = "banco.db";
-    private static final String TABELA = "TabelaConsumo";
+    private static final String TABELACONSUMO = "TabelaConsumo";
     private static final String ID = "_id";
     private static final String DATA = "data";
     private static final String CONSUMO= "consumo";
     private static final String CUSTO = "custo";
     private static final String VALORCONT = "valorcont";
-    private  static int VERSAO= 1;
 
-
-    private static final String TABELA2 = "TabelaDica";
+    private  static int VERSAO1;
+    private static final String TABELADICA = "TabelaDica";
     private static final String ID1 = "_id";
     private static final String STATUS= "status";
     private static final String DICA= "dica";
     private static final String DESCRICAO= "descricao";
-    private  static int VERSAO1 = 1;
+
 
     public CriarBanco(Context context){
         super(context, NOME_BANCO,null,VERSAO);
@@ -29,16 +29,16 @@ public class CriarBanco extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE "+TABELA+"("
-                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+        String sql = "CREATE TABLE "+TABELACONSUMO+"("
+                + ID + " INTEGER PRIMARY KEY, "
                 + DATA + " STRING, "
                 + CONSUMO + " INTEGER, "
                 + CUSTO + " FLOAT, "
                 + VALORCONT +" LONG "
                 +")";
 
-        String sql2 = "CREATE TABLE "+TABELA2+"("
-                + ID1 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+        String sql2 = "CREATE TABLE "+TABELADICA+"("
+                + ID1 + " INTEGER PRIMARY KEY, "
                 + STATUS + " INTEGER, "
                 + DICA + " TEXT, "
                 + DESCRICAO + " TEXT"
@@ -51,8 +51,8 @@ public class CriarBanco extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS" + TABELA);
-        db.execSQL("DROP TABLE IF EXISTS" + TABELA2);
+        db.execSQL("DROP TABLE IF EXISTS" + TABELACONSUMO);
+        db.execSQL("DROP TABLE IF EXISTS" + TABELADICA);
         onCreate(db);
     }
 }

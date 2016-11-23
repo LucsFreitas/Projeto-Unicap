@@ -13,7 +13,7 @@ public class ActivityDetalheDica extends AppCompatActivity {
         setContentView(R.layout.activity_detalhe_dica);
 
         Intent intent = getIntent(); // Recebe os dados passados
-        ModelDicas dica = (ModelDicas) intent.getSerializableExtra("DICA"); // Busca o objeto sinalizado como DICA
+        ContractDica dica = (ContractDica) intent.getSerializableExtra("DICA"); // Busca o objeto sinalizado como DICA
 
         TextView titulo = (TextView) findViewById(R.id.titulo); // Seleciona o TextView com o id Titulo, para inserir o titulo
         titulo.setText(dica.getTitulo()); // Insere o titulo no TextView

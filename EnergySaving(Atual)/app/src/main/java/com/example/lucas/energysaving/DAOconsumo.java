@@ -12,32 +12,30 @@ import java.util.List;
  * Created by lucas on 22/11/2016.
  */
 
-public class BancoControllerConsumo {
+public class DAOconsumo {
     private SQLiteDatabase db;
     private CriarBanco banco;
 
-    public BancoControllerConsumo(Context context){
+    public DAOconsumo(Context context){
         banco = new CriarBanco(context);
     }
 
-    public void insertConsumo(ModelConsumo modelConsumo){
+    public void insertConsumo(ContractConsumo contractConsumo){
 
         db = banco.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
-        cv.put("data", modelConsumo.getData());
-        cv.put("consumo", modelConsumo.getConsumo());
-        cv.put("custo", modelConsumo.getCusto());
-        cv.put("valorcont", modelConsumo.getValorContador());
-
+        cv.put("data", contractConsumo.getData());
+        cv.put("consumo",contractConsumo.getConsumo());
+        cv.put("custo",contractConsumo.getCusto());
+        cv.put("valorcont", contractConsumo.getValorContador());
         db.insert("TabelaConsumo", null, cv);
-
         db.close();
 
     }
 
-    public List<ModelConsumo> selectTodosOsConsumos() {
-        List<ModelConsumo> listModelConsumos = new ArrayList<ModelConsumo>();
+    public List<ContractConsumo> selectTodosOsConsumos() {
+        List<ContractConsumo> listModelConsumos = new ArrayList<ContractConsumo>();
         db = banco.getReadableDatabase();
         String sqlSelectTodosConsumos = "SELECT * FROM TabelaConsumo";
         Cursor c = db.rawQuery(sqlSelectTodosConsumos, null);
@@ -49,7 +47,7 @@ public class BancoControllerConsumo {
                 int consumo = c.getInt(2);
                 float custo = c.getFloat(3);
                 long valorcontador = c.getLong(4);
-                ModelConsumo modelConsumoN = new ModelConsumo(data, consumo, valorcontador, custo);
+                ContractConsumo modelConsumoN = new ContractConsumo(data, consumo, custo,  valorcontador);
                 listModelConsumos.add(modelConsumoN);
             } while (c.moveToNext());
         }

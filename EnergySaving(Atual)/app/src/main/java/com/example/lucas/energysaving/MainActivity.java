@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void criar_dicas (){
-        BancoControllerDica dbDicas = new BancoControllerDica(this);
+        DAOdica dbDicas = new DAOdica(this);
         boolean resp = dbDicas.isEmpty();
 
         if (resp){
@@ -72,14 +72,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "Em caso de mesas de trabalho e de leitura, coloque-as próximas às janelas. " +
                     "Essa simples mudança nos cômodos pode gerar muita economia de energia no fim do mês";
             status = 0;
-            ModelDicas d = new ModelDicas(0, titulo, desc, status);
+            ContractDica d = new ContractDica(0, titulo, desc, status);
             dbDicas.insertDicas(d);
 
             // Dica 2
             titulo = "Vai comprar um ventilador?";
             desc = "Lembre-se que quanto maior o diâmetro das hélices, maior o consumo. ";
             status = 0;
-            d = new ModelDicas(1, titulo, desc, status );
+            d = new ContractDica(1, titulo, desc, status );
             dbDicas.insertDicas(d);
 
             // Dica 3
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "aparelhos elétricos de alto consumo de energia (como ferros de passar roupa e " +
                     "chuveiros elétricos) durante este horário.";
             status = 0;
-            d = new ModelDicas(2, titulo, desc, status);
+            d = new ContractDica(2, titulo, desc, status);
             dbDicas.insertDicas(d);
 
             // Dica 4
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "refletir e espalhar a luz para todo o ambiente, possibilitando utilizar " +
                     "lâmpadas de menor potência.";
             status = 0;
-            d = new ModelDicas(3, titulo, desc, status);
+            d = new ContractDica(3, titulo, desc, status);
             dbDicas.insertDicas(d);
 
             // Dica 5
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             desc = "Compre equipamentos com o selo Procel de Economia de Energia, \n" +
                     "de preferência da Categoria A, pois tais equipamentos consumem menos energia.";
             status = 0;
-            d = new ModelDicas(4, titulo, desc,status);
+            d = new ContractDica(4, titulo, desc,status);
             dbDicas.insertDicas(d);
 
             // Dica 6
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "contra 1 mil das incandescentes. Por isso, se ainda houver alguma lâmpada " +
                     "incandescente na sua residência, sugerimos substitui-la por uma fluorescente.";
             status = 0;
-            d = new ModelDicas(5, titulo, desc,status);
+            d = new ContractDica(5, titulo, desc,status);
             dbDicas.insertDicas(d);
 
             // Dica 7
@@ -134,16 +134,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "para o caso de o usuário esquecê-lo ligado. Se puder optar entre um computador " +
                     "e um laptop ou notebook prefira esses últimos, que são muito mais econômicos.";
             status = 0;
-            d = new ModelDicas(6, titulo, desc,status);
+            d = new ContractDica(6, titulo, desc,status);
             dbDicas.insertDicas(d);
         }
     }
 
     private void preencherListView (){
-        BancoControllerConsumo dbConsumo = new BancoControllerConsumo(this);
+        DAOconsumo dbConsumo = new DAOconsumo(this);
 
         // listaConsumo recebe o listar todos do BD
-        final List<ModelConsumo> listaModelConsumos = dbConsumo.selectTodosOsConsumos();
+        final List<ContractConsumo> listaModelConsumos = dbConsumo.selectTodosOsConsumos();
 
         if(listaModelConsumos.size() == 0){
             AlertDialog.Builder dig = new AlertDialog.Builder(MainActivity.this);
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else {
             ArrayList<String> list = new ArrayList<>(); // Cria uma ArryaList com as datas, para a listagem
 
-            for (ModelConsumo aux : listaModelConsumos) {
+            for (ContractConsumo aux : listaModelConsumos) {
                 list.add(aux.getData());
             }
 
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Intent intent = new Intent(MainActivity.this, ActivityDetalheConsumo.class);
 
                     // Obtem o consumo do array
-                    ModelConsumo c = listaModelConsumos.get(position);
+                    ContractConsumo c = listaModelConsumos.get(position);
                     // Insere o consumo na intent para ser passado para a outra Activity
                     intent.putExtra("CONSUMO", c);
 

@@ -11,12 +11,12 @@ import android.content.Intent;
 public class EmitirDicaReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        BancoControllerDica db = new BancoControllerDica(context);
-        ModelDicas d = db.desbloquear();
+        DAOdica db = new DAOdica(context);
+        ContractDica d = db.desbloquear();
 
         if (d != null){
             Intent intent2 = new Intent(context, ActivityDetalheDica.class);
-            intent.putExtra("DICA", d);
+            intent2.putExtra("DICA", d);
 
             String titulo = "Nova Dica Desbloqueada!!!";
             int id = 1;

@@ -27,7 +27,7 @@ public class ActivityCalcularConsumo extends AppCompatActivity implements View.O
     public void onClick(View v){
         AlertDialog.Builder dig = new AlertDialog.Builder(ActivityCalcularConsumo.this);
 
-        BancoControllerConsumo db = new BancoControllerConsumo(this);
+        DAOconsumo db = new DAOconsumo(this);
         String valor = cont_atual.getText().toString();
 
         if (valor.trim().isEmpty()){

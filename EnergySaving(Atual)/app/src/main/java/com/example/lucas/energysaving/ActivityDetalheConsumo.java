@@ -13,7 +13,7 @@ public class ActivityDetalheConsumo extends AppCompatActivity {
         setContentView(R.layout.activity_detalhe_consumo);
 
         Intent intent = getIntent(); // Recebe os dados passados
-        ModelConsumo c = (ModelConsumo) intent.getSerializableExtra("CONSUMO"); // Busca o objeto sinalizado como CONSUMO
+        ContractConsumo c = (ContractConsumo) intent.getSerializableExtra("CONSUMO"); // Busca o objeto sinalizado como CONSUMO
 
         TextView data = (TextView) findViewById(R.id.data); // Seleciona o TextView com o id Data, para inserir a data
         data.setText(c.getData()); // Insere a data no TextView

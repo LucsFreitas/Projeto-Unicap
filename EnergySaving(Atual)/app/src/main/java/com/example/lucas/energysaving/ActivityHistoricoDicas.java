@@ -1,6 +1,7 @@
 package com.example.lucas.energysaving;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,9 +20,9 @@ public class ActivityHistoricoDicas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historico_dicas);
 
-        BancoControllerDica dbDicas = new BancoControllerDica(this);
+        DAOdica dbDicas = new DAOdica(this);
 
-        final List<ModelDicas> listaDicas  = dbDicas.selectTodosAsDicas(); // listaDicas recebe o listar todos do BD
+        final List<ContractDica> listaDicas  = dbDicas.selectTodosAsDicas(); // listaDicas recebe o listar todos do BD
 
         if(listaDicas.size() == 0){
             AlertDialog.Builder dig = new AlertDialog.Builder(ActivityHistoricoDicas.this);
@@ -34,7 +35,7 @@ public class ActivityHistoricoDicas extends AppCompatActivity {
             // Cria uma ArryaList com os titulos, para a listagem
             ArrayList<String> list = new ArrayList<>();
 
-            for (ModelDicas aux : listaDicas) {
+            for (ContractDica aux : listaDicas) {
                 list.add(aux.getTitulo());
             }
 
@@ -54,7 +55,7 @@ public class ActivityHistoricoDicas extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(ActivityHistoricoDicas.this, ActivityDetalheDica.class);
 
-                    ModelDicas d = listaDicas.get(position); // Obtem a dica do array
+                    ContractDica d = listaDicas.get(position); // Obtem a dica do array
                     intent.putExtra("DICA", d);
 
                     startActivity(intent); // Inicia a nova activity
