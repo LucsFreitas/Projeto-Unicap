@@ -67,4 +67,35 @@ public class DAOconsumo {
         return consumo;
     }
 
+
+    /*Para usar o buscarData chama ele paraecedio com o desbloquear dica, só que ao invés de passar sem nada nos parametros
+    * passa a nova data que a pessoa está querendo ser inserida ai aqui ele vai buscar e vai ver se existe se ja existe ele monta um objeto
+    * com todos os dados daquela data e retorna senão ele retorna nullo ai sim pode inserir o novo consumo
+    * fica tipo
+    * retorno = buscarData(a nova data aqui)
+    * se o retorno for Nullo insere se não consumo ja existe*/
+
+    public ContractConsumo buscarData(String dataNova){
+        db = banco.getReadableDatabase();
+        String sqlbuscar = "SELECT * FROM TabelaConsumo";
+        Cursor c = db.rawQuery(sqlbuscar, null);
+        ContentValues valores = new ContentValues();
+        if(c.moveToFirst())
+            do {
+
+                if (c.getString(1) == dataNova) {
+                    String data = c.getString(1);
+                    int consumo = c.getInt(2);
+                    float custo = c.getInt(3);
+                    long valorContador = c.getLong(4);
+                    ContractConsumo consumoR = new ContractConsumo(data, consumo, custo, valorContador);
+                    String _id = String.valueOf(c.getInt(1));
+                    return consumoR;
+                }
+            } while (c.moveToNext());
+
+        db.close ();
+        return null;
+    }
+
 }
