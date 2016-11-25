@@ -30,7 +30,7 @@ public class CriarBanco extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE "+TABELACONSUMO+"("
-                + ID + " INTEGER PRIMARY KEY, "
+                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + DATA + " STRING, "
                 + CONSUMO + " INTEGER, "
                 + CUSTO + " FLOAT, "

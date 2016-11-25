@@ -51,6 +51,7 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
                 String v_custo = textCusto.getText().toString(); //pega os valores digitados em Data
                 String v_cont = textContador.getText().toString(); //pega os valores digitados em Contador
                 String v_consumo = textConsumo.getText().toString();
+
                 if(v_mes.trim().isEmpty() || v_ano.trim().isEmpty() || v_cont.trim().isEmpty() || v_consumo.trim().isEmpty() || v_custo.trim().isEmpty()){
                     dig.setMessage("Preencha todos os campos antes de salvar");
                     dig.setNeutralButton("OK", null);
@@ -118,14 +119,22 @@ public class ActivityAdicionarConsumo extends AppCompatActivity implements View.
                         else
                             data = "" + mes + '/' + ano;
 
-                        ContractConsumo c = new ContractConsumo(data, consumo, custo,valorCont);
+                        ContractConsumo aux = db.buscarData (data);
 
-                        db.insertConsumo(c);
+                        if (aux != null) {
+                            dig.setMessage("Já existe um consumo adicionado para esta data");
+                            dig.setNeutralButton("OK", null);
+                            dig.show();
+                        }
+                        else {
+                            ContractConsumo c = new ContractConsumo(data, consumo, custo,valorCont);
+                            db.insertConsumo(c);
 
-                        Toast toast = Toast.makeText(this, "Consumo Adicionado com Sucesso",
-                                Toast.LENGTH_SHORT);
-                        toast.show();
-                        finish();
+                            Toast toast = Toast.makeText(this, "Consumo Adicionado com Sucesso",
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                            finish();
+                        }
                     }
                 }
                 break;

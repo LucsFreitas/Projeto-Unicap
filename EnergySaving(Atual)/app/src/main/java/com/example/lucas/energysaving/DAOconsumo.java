@@ -79,17 +79,15 @@ public class DAOconsumo {
         db = banco.getReadableDatabase();
         String sqlbuscar = "SELECT * FROM TabelaConsumo";
         Cursor c = db.rawQuery(sqlbuscar, null);
-        ContentValues valores = new ContentValues();
         if(c.moveToFirst())
             do {
 
-                if (c.getString(1) == dataNova) {
+                if (c.getString(1).compareTo(dataNova) == 0) {
                     String data = c.getString(1);
                     int consumo = c.getInt(2);
                     float custo = c.getInt(3);
                     long valorContador = c.getLong(4);
                     ContractConsumo consumoR = new ContractConsumo(data, consumo, custo, valorContador);
-                    String _id = String.valueOf(c.getInt(1));
                     return consumoR;
                 }
             } while (c.moveToNext());
