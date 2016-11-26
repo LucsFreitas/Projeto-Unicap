@@ -2,69 +2,71 @@ package com.example.lucas.energysaving;
 
 import android.app.AlarmManager;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button bAdicionar;
-    private Button bCalcular;
-    private Button btempDica;
+public class MainActivity extends AppCompatActivity implements FragmentHistoricoConsumo.CreateListenner {
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bCalcular = (Button)findViewById(R.id.ib_ActCalcular);
-        bAdicionar = (Button)findViewById(R.id.ib_ActAdicionar);
-        bCalcular.setOnClickListener(this);
-        bAdicionar.setOnClickListener(this);
-
-        btempDica = (Button) findViewById(R.id.tempDica);
-        btempDica.setOnClickListener(this);
-
         criar_dicas();
         agendarNotificacao();
-        preencherListView();
+
+        // ViewPager
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager.setAdapter(new TabsAdapter(getSupportFragmentManager()));
+
+        // Configura as Tabs
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.addTab(actionBar.newTab().setText("Consumo").setTabListener(new MyTabListener(viewPager, 0)));
+        actionBar.addTab(actionBar.newTab().setText("Dicas").setTabListener(new MyTabListener(viewPager, 1)));
+
+        // Se o ViewPager troca de página, atualiza a Tab.
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int idx) {
+                // Se fizer swipe no ViewPager, atualiza a tab
+                actionBar.setSelectedNavigationItem(idx);
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+
+        });
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        preencherListView();
+    public void onClickAdd() {
+        Intent intent1 = new Intent (this, ActivityAdicionarConsumo.class);
+        startActivity(intent1);
     }
 
     @Override
-    public void onClick(View v){ // Quando o usuário clicar em Adicionar ou Calcular
-        switch (v.getId()) {
-            case R.id.ib_ActAdicionar: // Inicia a Activity Adicionar
-                Intent intent1 = new Intent (this, ActivityAdicionarConsumo.class);
-                startActivity(intent1);
-                break;
-            case R.id.ib_ActCalcular: // Inicia a Activity Calcular
-                Intent intent2 = new Intent (this, ActivityCalcularConsumo.class);
-                startActivity(intent2);
-                break;
-            case R.id.tempDica:
-                Intent intent3 = new Intent (this, ActivityHistoricoDicas.class);
-                startActivity(intent3);
-                break;
-        }
+    public void onClickCalc() {
+        Intent intent2 = new Intent (this, ActivityCalcularConsumo.class);
+        startActivity(intent2);
     }
-
     private void criar_dicas (){
         DAOdica dbDicas = new DAOdica(this);
         boolean resp = dbDicas.isEmpty();
@@ -148,60 +150,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private List<ContractConsumo> obterConsumos (){
-        DAOconsumo dbConsumo = new DAOconsumo(this);
-
-        // listaConsumo recebe o listar todos do BD
-        List<ContractConsumo> temp = dbConsumo.selectTodosOsConsumos();
-
-        Collections.sort(temp);
-        return temp;
-    }
-
-    private void preencherListView (){
-        final List<ContractConsumo> listaModelConsumos = obterConsumos();
-
-        if(listaModelConsumos.size() != 0) {
-            ArrayList<String> list = new ArrayList<>(); // Cria uma ArryaList com as datas, para a listagem
-
-            for (ContractConsumo aux : listaModelConsumos) {
-                list.add(aux.getData());
-            }
-
-            String[] datas = list.toArray(new String[list.size()]);
-
-            ListView listView = (ListView) findViewById(R.id.ListaConsumo);
-
-            // Cria o adapter de String para a ListView
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, datas);
-
-            listView.setAdapter(adapter); // Conectar o adapter criado com a ListView
-
-            // Quando clicar em algum item da lista, chama a activity detalhe
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    // Intent (origem, destino);
-                    Intent intent = new Intent(MainActivity.this, ActivityDetalheConsumo.class);
-
-                    // Obtem o consumo do array
-                    ContractConsumo c = listaModelConsumos.get(position);
-                    // Insere o consumo na intent para ser passado para a outra Activity
-                    intent.putExtra("CONSUMO", c);
-
-                    startActivity(intent); // Inicia a nova activity
-                }
-            });
-        }
-    }
-
     private long getTime(){
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(System.currentTimeMillis());
-        c.set(Calendar.HOUR_OF_DAY, 15);
-        c.set(Calendar.MINUTE, 00);
+        c.set(Calendar.HOUR_OF_DAY, 20);
+        c.set(Calendar.MINUTE, 46);
         c.set(Calendar.SECOND, 00);
-        c.add(Calendar.DAY_OF_MONTH, 1);
+        //c.add(Calendar.DAY_OF_MONTH, 1);
 
         long time = c.getTimeInMillis();
 

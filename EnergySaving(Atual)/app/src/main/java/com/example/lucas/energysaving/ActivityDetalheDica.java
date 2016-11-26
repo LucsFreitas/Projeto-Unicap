@@ -3,6 +3,7 @@ package com.example.lucas.energysaving;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
 public class ActivityDetalheDica extends AppCompatActivity {
@@ -20,5 +21,6 @@ public class ActivityDetalheDica extends AppCompatActivity {
 
         TextView desc = (TextView) findViewById(R.id.desc); // Seleciona o TextView com o id Desc, para inserir a descrição
         desc.setText(dica.getDescricao()); // Insere a descrição no TextView
+        desc.setMovementMethod(new ScrollingMovementMethod());
     }
 }
