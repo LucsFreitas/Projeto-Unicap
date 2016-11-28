@@ -154,10 +154,10 @@ public class MainActivity extends AppCompatActivity implements FragmentHistorico
     private long getTime(){
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(System.currentTimeMillis());
-        c.set(Calendar.HOUR_OF_DAY, 20);
-        c.set(Calendar.MINUTE, 46);
+        c.set(Calendar.HOUR_OF_DAY, 11);
+        c.set(Calendar.MINUTE, 00);
         c.set(Calendar.SECOND, 00);
-        //c.add(Calendar.DAY_OF_MONTH, 1);
+        c.add(Calendar.DAY_OF_MONTH, 1);
 
         long time = c.getTimeInMillis();
 
