@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements FragmentHistorico
         Intent intent2 = new Intent (this, ActivityCalcularConsumo.class);
         startActivity(intent2);
     }
-
     private void criar_dicas (){
         DAOdica dbDicas = new DAOdica(this);
         boolean resp = dbDicas.isEmpty();

@@ -17,6 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SplashActivity"> </activity>
 
         <receiver android:name=".EmitirDicaReceiver">
             <intent-filter>
@@ -34,6 +35,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".ActivityDetalheConsumo" />
+        <activity android:name=".ActivityHistoricoDicas" />
         <activity android:name=".ActivityAdicionarConsumo" />
         <activity android:name=".ActivityCalcularConsumo"></activity>
     </application>
