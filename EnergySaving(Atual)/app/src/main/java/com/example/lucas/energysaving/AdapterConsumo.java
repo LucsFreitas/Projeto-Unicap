@@ -10,11 +10,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class DicaAdapter extends BaseAdapter {
+public class AdapterConsumo extends BaseAdapter {
     private final Context context;
-    private List<ContractDica> list;
+    private List<ContractConsumo> list;
 
-    public DicaAdapter(Context context, List<ContractDica> lista){
+    public AdapterConsumo(Context context, List<ContractConsumo> lista){
         this.context = context;
         this.list = lista;
     }
@@ -39,16 +39,16 @@ public class DicaAdapter extends BaseAdapter {
         View itemView = convertView;
 
         if (itemView == null){
-            itemView = LayoutInflater.from(context).inflate(R.layout.item_dica, parent, false); // Cria o layout
+            itemView = LayoutInflater.from(context).inflate(R.layout.item_consumo, parent, false); // Cria o layout
         }
 
-        ContractDica d = (ContractDica) getItem(position);
+        ContractConsumo c = (ContractConsumo) getItem(position);
 
-        TextView titulo = (TextView) itemView.findViewById(R.id.tit);
-        TextView desc = (TextView) itemView.findViewById(R.id.descricao);
+        TextView data = (TextView) itemView.findViewById(R.id.dataConsumo);
+        TextView consumo = (TextView) itemView.findViewById(R.id.valorConsumo);
 
-        titulo.setText(d.getTitulo());
-        desc.setText(d.getDescricao());
+        data.setText(c.getData());
+        consumo.setText("R$ " + Float.toString(c.getCusto()));
 
         return itemView;
     }

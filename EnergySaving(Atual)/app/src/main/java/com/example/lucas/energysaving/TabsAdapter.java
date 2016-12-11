@@ -17,9 +17,11 @@ public class TabsAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int idx) {
-        if (idx == 0) {
+        if (idx == 0)
             return new FragmentHistoricoConsumo();
-        } else
+        else if(idx == 1)
             return new FragmentHistoricoDicas();
+        else
+            return new FragmentCuriosidades();
     }
 }

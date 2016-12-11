@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHistorico
         actionBar.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_TABS);
         actionBar.addTab(actionBar.newTab().setText("Consumo").setTabListener(new MyTabListener(viewPager, 0)));
         actionBar.addTab(actionBar.newTab().setText("Dicas").setTabListener(new MyTabListener(viewPager, 1)));
+        actionBar.addTab(actionBar.newTab().setText("Curiosidades").setTabListener(new MyTabListener(viewPager, 2)));
 
         // Se o ViewPager troca de página, atualiza a Tab.
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

@@ -8,11 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,7 +61,7 @@ public class FragmentHistoricoConsumo extends android.support.v4.app.Fragment {
         if (listaConsumos.size() > 0){
             ListView listView = (ListView) view.findViewById(R.id.ListaConsumo);
 
-            listView.setAdapter(new ConsumoAdapter(getActivity().getApplicationContext(),
+            listView.setAdapter(new AdapterConsumo(getActivity().getApplicationContext(),
                     listaConsumos));
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -81,39 +79,6 @@ public class FragmentHistoricoConsumo extends android.support.v4.app.Fragment {
                 }
             });
         }
-/*
-        if(listaModelConsumos.size() != 0) {
-            ArrayList<String> list = new ArrayList<>(); // Cria uma ArryaList com as datas, para a listagem
-
-            for (ContractConsumo aux : listaModelConsumos) {
-                list.add(aux.getData());
-            }
-
-            String[] datas = list.toArray(new String[list.size()]);
-
-            ListView listView = (ListView) view.findViewById(R.id.ListaConsumo);
-
-            // Cria o adapter de String para a ListView
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, datas);
-
-            listView.setAdapter(adapter); // Conectar o adapter criado com a ListView
-
-            // Quando clicar em algum item da lista, chama a activity detalhe
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    // Intent (origem, destino);
-                    Intent intent = new Intent(getActivity().getApplicationContext(), ActivityDetalheConsumo.class);
-
-                    // Obtem o consumo do array
-                    ContractConsumo c = listaModelConsumos.get(position);
-                    // Insere o consumo na intent para ser passado para a outra Activity
-                    intent.putExtra("CONSUMO", c);
-
-                    startActivity(intent); // Inicia a nova activity
-                }
-            });
-        }*/
     }
 
     @Override
