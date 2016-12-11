@@ -1,4 +1,4 @@
-package com.example.lucas.energysaving;
+﻿package com.example.lucas.energysaving;
 
 import android.app.AlarmManager;
 import android.content.Intent;
@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements FragmentHistorico
         setContentView(R.layout.activity_main);
 
         criar_dicas();
-        agendarNotificacao();
 
         // ViewPager
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -72,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements FragmentHistorico
         boolean resp = dbDicas.isEmpty();
 
         if (resp){
-            int i;
             String titulo;
             String desc;
             int status;
@@ -147,13 +145,15 @@ public class MainActivity extends AppCompatActivity implements FragmentHistorico
             status = 0;
             d = new ContractDica(6, titulo, desc,status);
             dbDicas.insertDicas(d);
+
+            agendarNotificacao();
         }
     }
 
     private long getTime(){
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(System.currentTimeMillis());
-        c.set(Calendar.HOUR_OF_DAY, 11);
+        c.set(Calendar.HOUR_OF_DAY, 15);
         c.set(Calendar.MINUTE, 00);
         c.set(Calendar.SECOND, 00);
         c.add(Calendar.DAY_OF_MONTH, 1);

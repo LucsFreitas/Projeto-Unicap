@@ -2,13 +2,13 @@ package com.example.lucas.energysaving;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,14 +37,29 @@ public class FragmentHistoricoDicas extends android.support.v4.app.Fragment {
     private void preencherListView (View view) {
         final List<ContractDica> listaDicas = obterDicas();
 
-        if (listaDicas.size() == 0) {
-            AlertDialog.Builder dig = new AlertDialog.Builder(getActivity().getApplicationContext());
+        if (listaDicas.size() > 0){
+            ListView listView = (ListView) view.findViewById(R.id.ListaDicas);
 
-            dig.setMessage("Aqui você pode rever as dicas que já foram desbloqueadas. " +
-                    "Porém, no momento, ainda não foi desbloqueada nehuma dica. Volte mais tarde.");
-            dig.setNeutralButton("OK", null);
-            dig.show();
-        } else {
+            listView.setAdapter(new DicaAdapter(getActivity().getApplicationContext(),
+                    listaDicas));
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // Intent (origem, destino);
+                    Intent intent = new Intent(getActivity().getApplicationContext(), ActivityDetalheDica.class);
+
+                    // Obtem o consumo do array
+                    ContractDica d = listaDicas.get(position);
+                    // Insere o consumo na intent para ser passado para a outra Activity
+                    intent.putExtra("DICA", d);
+
+                    startActivity(intent); // Inicia a nova activity
+                }
+            });
+        }
+        /*
+        if (listaDicas.size() > 0) {
             // Cria uma ArryaList com os titulos, para a listagem
             ArrayList<String> list = new ArrayList<>();
 
@@ -77,7 +92,7 @@ public class FragmentHistoricoDicas extends android.support.v4.app.Fragment {
                 }
             });
 
-        }
+        }*/
     }
 
     @Override

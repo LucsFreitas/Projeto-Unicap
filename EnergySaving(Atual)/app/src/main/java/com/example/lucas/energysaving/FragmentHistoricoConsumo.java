@@ -58,8 +58,30 @@ public class FragmentHistoricoConsumo extends android.support.v4.app.Fragment {
     }
 
     private void preencherListView (View view){
-        final List<ContractConsumo> listaModelConsumos = obterConsumos();
+        final List<ContractConsumo> listaConsumos = obterConsumos();
 
+        if (listaConsumos.size() > 0){
+            ListView listView = (ListView) view.findViewById(R.id.ListaConsumo);
+
+            listView.setAdapter(new ConsumoAdapter(getActivity().getApplicationContext(),
+                    listaConsumos));
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // Intent (origem, destino);
+                    Intent intent = new Intent(getActivity().getApplicationContext(), ActivityDetalheConsumo.class);
+
+                    // Obtem o consumo do array
+                    ContractConsumo c = listaConsumos.get(position);
+                    // Insere o consumo na intent para ser passado para a outra Activity
+                    intent.putExtra("CONSUMO", c);
+
+                    startActivity(intent); // Inicia a nova activity
+                }
+            });
+        }
+/*
         if(listaModelConsumos.size() != 0) {
             ArrayList<String> list = new ArrayList<>(); // Cria uma ArryaList com as datas, para a listagem
 
@@ -91,7 +113,7 @@ public class FragmentHistoricoConsumo extends android.support.v4.app.Fragment {
                     startActivity(intent); // Inicia a nova activity
                 }
             });
-        }
+        }*/
     }
 
     @Override
