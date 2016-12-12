@@ -9,15 +9,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
+        android:layout_marginLeft="8dp"
         android:text="Titulo"
         android:textColor="#666666"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/descricao"
+        android:id="@+id/desc2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:textSize="18sp"
         android:text="Descricao"
         android:maxLines="1"

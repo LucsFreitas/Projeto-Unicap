@@ -45,7 +45,7 @@ public class AdapterDica extends BaseAdapter {
         ContractDica d = (ContractDica) getItem(position);
 
         TextView titulo = (TextView) itemView.findViewById(R.id.tit);
-        TextView desc = (TextView) itemView.findViewById(R.id.descricao);
+        TextView desc = (TextView) itemView.findViewById(R.id.desc2);
 
         titulo.setText(d.getTitulo());
         desc.setText(d.getDescricao());

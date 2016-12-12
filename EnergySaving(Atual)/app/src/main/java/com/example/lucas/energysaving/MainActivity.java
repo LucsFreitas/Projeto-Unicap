@@ -1,4 +1,4 @@
-﻿package com.example.lucas.energysaving;
+package com.example.lucas.energysaving;
 
 import android.app.AlarmManager;
 import android.content.Intent;
@@ -6,15 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements FragmentHistoricoConsumo.CreateListenner {
     private ViewPager viewPager;
@@ -67,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHistorico
         Intent intent2 = new Intent (this, ActivityCalcularConsumo.class);
         startActivity(intent2);
     }
+
     private void criar_dicas (){
         DAOdica dbDicas = new DAOdica(this);
         boolean resp = dbDicas.isEmpty();

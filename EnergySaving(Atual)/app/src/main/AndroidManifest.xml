@@ -10,16 +10,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
         <receiver android:name=".EmitirDicaReceiver">
             <intent-filter>
                 <action android:name="com.example.brenon.Emitir_Dica" />
@@ -39,7 +29,14 @@
         <activity android:name=".ActivityAdicionarConsumo" />
         <activity android:name=".ActivityCalcularConsumo" />
         <activity android:name=".ActivityCuriosidades" />
-        <activity android:name=".ActivityDetalheCuriosidades"></activity>
+        <activity android:name=".ActivityDetalheCuriosidades" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

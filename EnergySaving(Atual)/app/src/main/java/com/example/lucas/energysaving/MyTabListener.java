@@ -12,7 +12,6 @@ public class MyTabListener implements ActionBar.TabListener {
     public MyTabListener(ViewPager viewPager, int idx) {
         this.viewPager = viewPager;
         this.idx = idx;
-
     }
 
     @Override
